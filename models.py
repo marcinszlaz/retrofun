@@ -18,20 +18,21 @@ class Product(Model):
         return f'Product({self.id}, "{self.name}", manufacturer: {self.manufacturer})'
 
 
-c64 = Product(name = 'Commodore 64', manufacturer = 'Commodore')
-with Session(engine) as session:
-    try:
-        session.add(c64)
-        session.commit()
-    except:
-        session.rollback()
-        raise
-    print(c64)
-#shorter version with begin()
-with Session(engine) as session:
-    with session.begin():
-        session.add(c64)
-    print(c64)
+#c64 = Product(name = 'Commodore 64', manufacturer = 'Commodore')
+#longer version
+#with Session(engine) as session:
+#    try:
+#        session.add(c64)
+#        session.commit()
+#    except:
+#        session.rollback()
+#        raise
+#    print(c64)
 
-#Model.metadata.create_all(engine)
-#Model.metadata.drop_all(engine)
+#shorter version with begin()
+#begin() under the hood do try/except magic
+#with Session(engine) as session:
+#    with session.begin():
+#        session.add(c64)
+#    print(c64)
+

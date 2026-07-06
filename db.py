@@ -5,6 +5,7 @@ from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 
 load_dotenv()
+#print('Database URL:', os.environ['DATABASE_URL'])
 
 class Model(DeclarativeBase):
     metadata = MetaData(naming_convention = {
@@ -16,11 +17,7 @@ class Model(DeclarativeBase):
     })
 
 
-#print('Database URL:', os.environ['DATABASE_URL'])
 engine = create_engine(os.environ['DATABASE_URL'])
 Session = sessionmaker(engine)
-#Model.metadata.create_all(engine)
-#Model.metadata.drop_all(engine)
-
 
 
