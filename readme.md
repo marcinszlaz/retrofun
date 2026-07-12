@@ -14,3 +14,13 @@
     `url = 'mysql+pymysql://retrofun:my-password@localhost:3306/retrofun'`
 * PostgreSQL with psycopg2:
     `url = 'postgresql+psycopg2://retrofun:my-password@localhost:5432/retrofun'`
+
+## access to database from Python shell (REPL)
+* `from sqlalchemy import select, func
+  from db import Session
+  from models import Product, Manufacturer
+  session = Session()`
+  
+* no xD
+
+ 

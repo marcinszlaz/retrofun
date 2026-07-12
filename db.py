@@ -17,7 +17,7 @@ class Model(DeclarativeBase):
     })
 
 
-engine = create_engine(os.environ['DATABASE_URL'])
+engine = create_engine(os.environ['DATABASE_URL'], echo = True)
 Session = sessionmaker(engine)
 
 
