@@ -30,7 +30,7 @@ class Manufacturer(Model):
     id: Mapped[int] = mapped_column(primary_key = True)
     name: Mapped[str] = mapped_column(String(64), index = True, unique = True)
     products: Mapped[list['Product']] = relationship(
-        back_populates = 'manufacturer')
+        cascade = 'all, delete-orphan', back_populates = 'manufacturer')
 
     def __repr__(self):
         return f'Manufacturer({self.id}, "{self.name}")'
