@@ -16,8 +16,8 @@ class Product(Model):
     manufacturer: Mapped['Manufacturer'] = relationship(
         back_populates = 'products')
     year: Mapped[int] = mapped_column(index = True)
-    country: Mapped[Optional[str]] = mapped_column(String(32))
-    cpu: Mapped[Optional[str]] = mapped_column(String(32))
+    country: Mapped[Optional[str]] = mapped_column(String(32)) # with optional it can be NULL
+    cpu: Mapped[Optional[str]] = mapped_column(String(32)) # optional[str] = can be NULL
 
     def __repr__(self):
         return f'Product({self.id}|{self.name}|{self.manufacturer}|{self.year}|{self.country}|{self.cpu})'

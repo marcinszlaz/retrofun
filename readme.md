@@ -20,7 +20,10 @@
   from db import Session
   from models import Product, Manufacturer
   session = Session()`
-  
-* no xD
+* ready to copy paste => from sqlalchemy import select, func;from db import Session;from models import Product, Manufacturer;session=Session();from auxiliary_com import c, d
+
+## How to save your work in REPL?
+* history of commands inputed in Python REPL are in /home/.python_history file
+* script <file_name> save input/output to file, but works bad with tmux
 
  

@@ -1,0 +1,442 @@
+import secrets, clipboard
+secrets.token_hex()
+clipboard.copy(secrets.token_hex())
+exit()
+from db import Session as session
+from models import Product, Manufacturer
+from sqlalchemy import select
+q = select(Product)
+q
+session.scalars(q).all)
+session.scalars(q).all
+session.scalars(q).all()
+print(q)
+q.__repr__
+q.__repr__()
+q.__str__()
+print(q)
+r = session.execute(q)
+session = session()
+r = session.execute(q)
+r
+print(r)
+r.__str__
+r.__str__()
+r.__repr__()
+r
+list(r)
+r = execute(q).all()
+q
+print(q)
+r
+print(r)
+session.execute(q).all()
+r = session.execute(q)
+q
+for row in r:
+	print(row)
+r_s = session.scalars(q).all()
+s_r
+r_s
+import auxiliary_com
+c(q,10)
+from auxiliary_com import c, d
+c(q,10)
+d(q,10)
+d(q,5)
+d(q,1)
+d(q,3)
+c(q,3)
+from db import Session
+session = Session()
+d(q, 3)
+q = select(Product)
+r = session.execute(q).all()
+r
+exit
+exit()
+from db import Session; from models import Manufacturer, Product
+from sqlalchemy import select
+q = select(Product)
+r = session.execute(q).all()
+session = Session()
+r = session.execute(q).all()
+r
+q
+print(q)
+r.__repr__
+r.__repr__()
+from auxiliary_com import c, d
+c(q, 5)
+d(q, 5)
+r = session(q)
+r = session.scalar(q)
+r
+r = session.scalars(q).one
+r = session.scalars(q).one()
+r
+r = session.scalars(q).one()
+r = session.scalars(q).first()
+r
+r = session.scalars(q).first_or_none()
+r = session.scalars(q).one_or_none()
+r = session.scalar(q).one_or_none()
+q = select(Product).where(Product.manufacturer == "Commodore")
+q = select(Product).where(Product.manufacturer == 'Commodore')
+from db import Session;from models import Product;session=Session()
+from sqlalchemy import select
+q = select(Product).where(Product.manufacturer == 'Commodore')
+q = select(Product).where(Product.manufacturer.has('Commodore'))
+q = select(Product.manufacturer.has('Commodore'))
+from sqlalchemy import select;from db import Session, from models import Product, Manufacturer;
+from sqlalchemy import select;from db import Session; from models import Product, Manufacturer;
+session = Session()
+q = select(Product)
+r = session.execute(q).all()
+r
+q = seletc(Product).where(Product.manufacturer == "Commodore")
+q = select(Product).where(Product.manufacturer == "Commodore")
+import os
+os.list_dir()
+os.listdir()
+import import_products.py
+import import_products
+q = select(Product).where(Product.manufacturer == 'Commodore')
+import_products.main()
+q = select(Product).where(Product.manufacturer == "Commodore")
+exit()
+from db imoprt Session; session=Session(); from models import Product, Models; from sqlalchemy import select;
+from db import Session; session=Session(); from models import Product, Models; from sqlalchemy import select;
+from db import Session; session=Session(); from models import Product, Manufacturer; from sqlalchemy import select;
+q = select(Product)
+q = select(Product).where(Product.manufacturer == "Commodore")
+q = select(Manufacturer)
+q
+print(q)
+r = session.execute(q).all()
+r
+q = select(Product)
+r = session.execute(q).all()
+r
+q = select(Product).where(Product.manufacturer == 'Commodore')
+exit()
+from sqlalchemy import select, where
+from sqlalchemy import select
+from db import Session; session=Session()
+from models import Manufacturer, Product
+q = select(Product).where(Product.manufacturer == "Commodore")
+q = select(Product).where(Manufacturer.name == "Commodore")
+session.scalars(q).all()
+q = select(Product).where(Manufacturer.name == "Commodore").limit(5)
+session.scalars(q).all()
+q = select(Product).where(Product.year >= 1990)
+print(q
+)
+r = session.scalars(q).all()
+r
+list(r)
+r = session.execute(q).all()
+r
+list(r)
+q = (select(Product)
+.where(Manufacture.name == "Commodore")
+.where(Product.year == 1980))
+q = (select(Product)
+.where(Manufacturer.name == "Commodore")
+.where(Product.year == 1980))
+print(q)
+r = session.execute(q).all()
+r
+d(q)
+import os
+os.listdir()
+from augmented_commands import c, d
+from auxiliary_com import c, d
+c(q)
+d(q)
+c(q, 5)
+c(q, 15)
+c(q, 10)
+from sqlalchemy import or_, and_
+q = select(Product).where(or_(Product.year < 1970, Product.year >1990))
+d(q,10)
+d(q,4)
+q = select(Product).where(Product.name.like('%Sinclair%'))
+d(q)
+import importlib
+importlib.reload()
+importlib.reload(auxiliary_com)
+from auxiliary_com import c, d
+d(q)
+importlib.reload(c)
+importlib.reload(auxiliary_com.py)
+importlib.reload(auxiliary_com)
+import auxiliary_com as axc
+importlib.reload(axc)
+d(q)
+d(q,5)
+d(q)
+d(q, 4)
+print(q)
+q = select(Product).where(Product.year.between(1970, 1979))
+print(q)
+q.compile(complie_kwargs={'literal_binds':True})
+q.compile(compile_kwargs={'literal_binds':True})
+q.compile(compile_kwargs={'literal_binds':True}).__repr__()
+q.compile(compile_kwargs={'literal_binds':True}).__str__()
+print(q.compile(compile_kwargs={'literal_binds':True}))
+help(q.compile)
+q.compile.__dict__
+q.compile.__dict__()
+q.compile.__dict__
+q.__dict__
+q.compile(compile_kwargs={}).__str__()
+q.compile(compile_kwargs={'literal_binds': True}).__str__()
+print(q.compile(compile_kwargs={'literal_binds': True}))
+d(q)
+d(q,18)
+c(q,10)
+c(q,5)
+from auxiliary_com import c, d
+c(q, 5)
+imoprtlib.reload(c)
+importlib.reload(c)
+importlib.reload(d)
+exit()
+from db import Session; session=Session(); from models import Product, Manufacturer; from sqlalchemy import select, not_, or_, and_
+q = select(Product).order_by(Product.name)
+d(q)
+from auxiliary_com import c, d
+d(q)
+import importlib
+help(importlib.reload)
+importlib.reload(auxiliary_com)
+importlib.reload('auxiliary_com')
+d.__dict__
+d.__dict__()
+c.__dict__
+auxiliary_com.__dict__
+auxiliary_com.__name__
+import auxiliary_com
+importlib.reload(auxiliary_com)
+d(q)
+importlib.reload(auxiliary_com.d)
+importlib.reload(auxiliary_com.c)
+from auxiliary_com import c, d
+d(q)
+c(q)
+d(q, 10)
+import clipboard
+with open('./auxiliary_com.py', 'r') as file_to_copy:
+	f.read()
+	clipboard.copy(f.read())
+with open('./auxiliary_com.py', 'r') as f:
+	clipboard.copy(f.read())
+import pyperclip
+with open('./auxiliary_com.py', 'r') as f:
+	pyperclip.copy(f.read())
+__file__
+pyperclip.copy(import auxiliary_com)
+with open('./auxiliary_com.py', 'r') as f:
+	text = f.read()
+	print(text)
+with open('./auxiliary_com.py', 'r') as f:
+	text = f.read()
+	print(text)
+	pyperclip.copy(text)
+import pyperclip, clipboard
+with open('./auxiliary_com.py', 'r') as f:
+	text = f.read()
+	print(text)
+	clipboard.copy(text)
+q
+print(q)
+d(q)
+q = select(Product).order_by(Product.year.desc())
+d(q)
+q = select(Product).order_by(Product.year.desc())
+c(q)
+q = select(Product).order_by(Product.year.asc())
+c(q)
+q = select(Product).order_by(Produc.year.desc(), Product.name.asc())
+q = select(Product).order_by(Product.year.desc(), Product.name.asc())
+d(q)
+q = select(Product.name)
+c(q)
+d(q)
+d(q, 30)
+from auxiliary_com import c, d
+d(q,30)
+importlib.reload(auxiliary_com)
+from auxiliary_com import c, d
+d(q,30)
+c(q, 10)
+importlib.reload(auxiliary_com)
+from auxiliary_com import c, d
+c(q)
+c(q, 10)
+c(q, 10, 5)
+c(q, 10, 139)
+c(q, 10, 140)
+importlib.reload(auxiliary_com)
+from auxiliary_com import c, d
+c(q, 10, 150)
+c(q, 10, 130)
+d(q, 10, 130)
+d(q, 20, 130)
+d(q, 30, 130)
+d(q, 30, 150)
+d(q, 30, 120)
+q = select(Product.name, Manufacture.name)
+q = select(Product.name, Manufacturer.name)
+d(q)
+q = select(Product.name, Product.manufacturer)
+q
+d(q)
+session.execute(q).all()
+len(session.execute(q).all())
+from sqlalchemy import func
+q = select(func.count(Product.id))
+q
+print(q)
+d(q)
+d(q, 1)
+q = select(func.min(Product.year), func.max(Product.year))
+session.execute(q)
+session.execute(q).first(*)
+session.execute(q).first()
+session.execute(q).one_or_non()
+session.execute(q).one_or_none()
+session.scalar(q).one_or_none()
+session.scalar(q)
+session.scalars(q).all()
+q  = select(Product.manufacturer).order_by(Product.manufacturer)
+d(q)
+d(q, 20)
+q = select(Product.manufactuerer)
+q = select(Product.manufacturer)
+q
+d(q)
+q = select(Manufacutrer.name).join(Product.manufacturer).order_by(Manufacturer.name)
+q = select(Manufacturer.name).join(Product.manufacturer).order_by(Manufacturer.name)
+d(q)
+d(q, 10)
+q = select(Manufacturer.name).join(Product.manufacturer).order_by(Manufacturer.name.distinct())
+d(q)
+q = select(Manufacturer.name).join(Product.manufacturer).order_by(Manufacturer.name).distinct())
+q = select(Manufacturer.name).join(Product.manufacturer).order_by(Manufacturer.name).distinct()
+d(q)
+q = select(func.count(Product.manufacturer.distinct()))
+q = select(func.count(Product.manufacturer.name.distinct()))
+q = select(func.count(Manufacturer.name.distinct()))
+d(q)
+d(q, 1)
+q = select(Product.name)
+d(q, 10)
+q = select(Product.name, Manufacturer.name).join(Product.manufacturer)
+d(q)
+d(q, 10)
+d(q, 10, 10)
+q = (select(Product.manufacturer.name).join(Product.manufacturer).group_by(Product.manufacturer.name).order_by(Product.manufacturer.name)
+)
+q = (select(Product.manufacturer.name).join(Product.manufacturer).group_by(Product.manufacturer.name).order_by(Product.manufacturer.name))
+q = (select(Manufacturer.name).
+group_by(Manufacturer.name).
+order_by(Manufacturer.name)
+)
+q
+print(q)
+d(q, 5)
+q = (select(
+		(Manufacturer.name,
+		func.min(Product.year),
+		func.max(Product.year),
+		func.count()
+		).join(Product.manufacturer)
+	.group_by(Product.manufacturer)
+	.order_by(Product.manufacturer))
+print(q)
+q = (select(
+	Manufacturer.name,
+	func.min(Product.year),
+	func.max(Product.year),
+	func.count()
+).join(Product.manufacturer)
+.group_by(Manufacturer.name)
+.order_by(Manufacturer.name))
+print(q)
+d(q)
+d(q, 5)
+q = (select(
+Manufacturer.name, func.count()
+)
+.group_by(Manufacturer.name)
+.having(func.count() >= 5)
+.order_by(Product.manufacturer))
+print(q)
+d(q, 5)
+c(q)
+q = (select(
+Manufacturer.name,
+func.count()
+)
+.join(Product.manufacturer)
+.group_by(Manufacturer.name)
+.order_by(Manufacturer.name))
+d(q, 5)
+c(q, 5)
+d(q, 5)
+print(q)
+q = (select(
+Manufacturer.name,
+func.count()
+)
+.join(Product.manufacturer)
+.group_by(Manufacturer.name)
+.having(func.count() >= 5)
+.order_by(Manufacturer.name))
+d(q, 5)
+d(q, 7)
+flask routes
+flask
+flask routes
+history
+#history
+# history
+q = 15
+TO SOM CYCKI XD
+exit()
+from sqlalchemy import select, func
+  from db import Session
+  from models import Product, Manufacturer
+(from sqlalchemy import select, func;from db import Session;from models import Product, Manufacturer;session=Session())
+from sqlalchemy import select, func;from db import Session;from models import Product, Manufacturer;session=Session()
+exit()
+(from sqlalchemy import select, func;from db import Session;from models import Product, Manufacturer;session=Session())
+from sqlalchemy import select, func;from db import Session;from models import Product, Manufacturer;session=Session()
+from sqlalchemy import select, func;from db import Session;    from models import Product, Manufacturer;session=Session()
+q = (select(Manufacturer.name, func.count().label(None)).group_by(Manufacturer.name).having(func.count().label(None) >= 5).order_by(Manufacturer.name))
+from auxiliary_com import c, d
+c(q)
+c(q,1)
+q = (select(Manufacturer.name, func.count().label(None)).join(Product.manufacturer).group_by(Manufacturer.name).having(func.count().label(None) >= 5).order_by(Manufacturer.name))
+d(q)
+print(q)
+q = (select(Manufacturer.name, func.count().label('cycki')).join(Product.manufacturer).group_by(Manufacturer.name).having(func.count().label('cycki') >= 5).order_by(Manufacturer.name))
+print(q)
+d(q, 7)
+print(q.compile(compile_kwargs={'literal_bind': True}))
+print(q.compile(compile_kwargs={'literal_binds': True}))
+q = select(Procuct).where(Product.id == 23)
+q = select(Product).where(Product.id == 23)
+d(q)
+d(q,1)
+q = select(ROW_NUMBER() OVER() AS nr, Product).where(Product.id == 23)
+q = select(func.row_number().over().label('cycki'), Product).where(Product.id == 23)
+d(q,1)
+q = session.get(Product, 23)
+d(q,1)
+c(q, 1)
+q = session.get(Product, 23)
+q
+exit()
