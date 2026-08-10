@@ -26,6 +26,5 @@ def main():
                     all_manufacturers[manufacturer].products.append(p)
                     #session.add(p) it isn't necessary
 
-
 if __name__ == '__main__':
     main()
