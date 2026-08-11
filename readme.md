@@ -20,7 +20,8 @@
   from db import Session
   from models import Product, Manufacturer
   session = Session()`
-* ready to copy paste => from sqlalchemy import select, func;from db import Session;from models import Product, Manufacturer;session=Session();from auxiliary_com import c, d
+* ready to copy paste => 
+from sqlalchemy import select,func, or_, and_, not_;from db import Session;from models import Product,Manufacturer;session=Session();from auxiliary_com import c, d;from sqlalchemy.orm import joinedload;
 
 ## How to save your work in REPL?
 * history of commands inputed in Python REPL are in /home/.python_history file

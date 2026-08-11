@@ -14,13 +14,13 @@ class Product(Model):
     manufacturer_id: Mapped[int] = mapped_column(
         ForeignKey('manufacturers.id'), index = True) #or Manufacturer.id
     manufacturer: Mapped['Manufacturer'] = relationship(
-        back_populates = 'products')
+        back_populates = 'products') # lazy = 'joined' => eager loader active
     year: Mapped[int] = mapped_column(index = True)
     country: Mapped[Optional[str]] = mapped_column(String(32)) # with optional it can be NULL
     cpu: Mapped[Optional[str]] = mapped_column(String(32)) # optional[str] = can be NULL
 
     def __repr__(self):
-        return f'Product({self.id}|{self.name}|{self.manufacturer}|{self.year}|{self.country}|{self.cpu})'
+        return f'Product({self.id}|{self.name}|{self.year}|{self.country}|{self.cpu})'
 
 
 # one manufacturer to many products relationship
@@ -30,7 +30,7 @@ class Manufacturer(Model):
     id: Mapped[int] = mapped_column(primary_key = True)
     name: Mapped[str] = mapped_column(String(64), index = True, unique = True)
     products: Mapped[list['Product']] = relationship(
-        cascade = 'all, delete-orphan', back_populates = 'manufacturer')
+        cascade = 'all, delete-orphan', back_populates = 'manufacturer') # cascade 'save-update, merge' -> default setting, 'all, delete-orphan'
 
     def __repr__(self):
         return f'Manufacturer({self.id}, "{self.name}")'
