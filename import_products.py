@@ -1,11 +1,20 @@
 import csv
-from db import Model, Session, engine
-from models import Product, Manufacturer, Country
+from sqlalchemy import delete
+from db import Session 
+# removed after alembic implementation (Model, engine)
+from models import Product, Manufacturer, Country, ProductCountry
 
 
 def main():
-    Model.metadata.drop_all(engine) #this deletes all data
-    Model.metadata.create_all(engine)
+#   Model.metadata.drop_all(engine) # deletes all data (tables)
+#   Model.metadata.create_all(engine) # creates tables
+# removed after alembic implementation
+    with Session() as session:
+        with session.begin():
+            session.execute(delete(ProductCountry))
+            session.execute(delete(Product))
+            session.execute(delete(Manufacturer))
+            session.execute(delete(Country))
 
     with Session() as session:
         with session.begin():

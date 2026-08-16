@@ -30,4 +30,8 @@ from sqlalchemy import select,func, or_, and_, not_;from db import Session;from 
 ## Database Migration [ALEMBIC]
 * `pip install alembic` - install package,
 * `alembic init migrations` - initializing, "migration" will be subdirectory with data
-* 
+* `alembic revision --autogenerate -m"products, manufacturers, countries"` - first migration /  backup have to be run on empty database (no tables, no data), Model.metadata.drop_all(engine  ) commands clears all xD,
+* `alembic upgrade head` - scripts itself doesn't create database, you have run the script you  rself,
+* `alembic current` - shows current head, current revision of database, all backups have their unique revision codes,
+* `alembic history` - shows history of upgrades, downgrades,
+*
