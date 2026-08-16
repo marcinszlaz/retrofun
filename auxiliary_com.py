@@ -1,3 +1,6 @@
+# Copyright(c) by Marcin Szlaz xD.
+# functions c & d resolving problem with data listing
+
 from db import Session, engine
 from models import Product
 from sqlalchemy import select, or_, and_, not_
@@ -35,4 +38,4 @@ def d(data, count: int = 5, offset: int = 0)->None:
         print('The query which was given is empty')
     print(f'processed data rows count: {count}/{len(result)}')
     return None
-
+# Copyright(c) by Marcin Szlaz xD.

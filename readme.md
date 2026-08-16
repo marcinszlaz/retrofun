@@ -25,6 +25,9 @@ from sqlalchemy import select,func, or_, and_, not_;from db import Session;from 
 
 ## How to save your work in REPL?
 * history of commands inputed in Python REPL are in /home/.python_history file
-* script <file_name> save input/output to file, but works bad with tmux
+* script <file_name> save input/output to file, but works badly with tmux
 
- 
+## Database Migration [ALEMBIC]
+* `pip install alembic` - install package,
+* `alembic init migrations` - initializing, "migration" will be subdirectory with data
+* 

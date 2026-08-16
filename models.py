@@ -29,8 +29,8 @@ class Product(Model):
     countries: Mapped[list['Country']] = relationship(
                 secondary='products_countries', back_populates='products')
 
-def __repr__(self):
-        return f'Product({self.id}|{self.name}|{self.year}|{self.country}|{self.cpu})'
+    def __repr__(self):
+        return f'Product({self.id}|{self.name}|{self.year}|{self.cpu})'
 
 
 # one manufacturer to many products relationship
@@ -54,9 +54,8 @@ class Country(Model):
     
     products: Mapped[list['Product']] = relationship(secondary='products_countries',
                                     back_populates='countries')
-
     def __repr__(self):
-        return f'Country(self.id), "{self.name}")'
+        return f'Country({self.id}, "{self.name}")'
 
 
 
