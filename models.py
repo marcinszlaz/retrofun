@@ -1,5 +1,9 @@
-from sqlalchemy import String, ForeignKey, Table, Column
-from sqlalchemy.orm import Mapped, mapped_column, Session, relationship
+from datetime import datetime, UTC
+from uuid import UUID, uuid4
+from sqlalchemy import (String, ForeignKey, Table, Column,
+Uuid, DateTime, Float)
+from sqlalchemy.orm import (Mapped, mapped_column, Session, relationship,
+WriteOnlyMapped)
 from db import Model, engine
 from typing import Optional
 
@@ -8,8 +12,7 @@ from typing import Optional
 # between products and countries, some products was produced
 # in multiple countries (Poland/Portugal)
 ProductCountry = (Table('products_countries',
-Model.metadata, Column('product_id', ForeignKey('products.id')), Column('country_id',
-ForeignKey('countries.id'))))
+Model.metadata, Column('product_id', ForeignKey('products.id')), Column('country_id', ForeignKey('countries.id'))))
 
 # class name convention `Product`, database table name convention `products`
 # many products to one manufacuturer 
@@ -28,6 +31,9 @@ class Product(Model):
         back_populates = 'products') # lazy = 'joined' => eager loader active
     countries: Mapped[list['Country']] = relationship(
                 secondary='products_countries', back_populates='products')
+    orders: Mapped[list['Order']] = relationship(secondary='orders_items', back_populates='products')
+    order_items: WriteOnlyMapped['OrderItem'] = relationship(
+    back_populates='product')
 
     def __repr__(self):
         return f'Product({self.id}|{self.name}|{self.year}|{self.cpu})'
@@ -55,6 +61,54 @@ class Country(Model):
     products: Mapped[list['Product']] = relationship(secondary='products_countries', back_populates='countries')
     def __repr__(self):
         return f'Country({self.id}, "{self.name}")'
+
+class Customer(Model):
+    __tablename__ = 'customers'
+    id: Mapped[UUID] = mapped_column(default=uuid4, primary_key=True)
+    name: Mapped[str] = mapped_column(String(64), index=True, unique=True)
+    address: Mapped[Optional[str]] = mapped_column(String(128))
+    phone: Mapped[Optional[str]] = mapped_column(String(32))
+    
+    orders: WriteOnlyMapped['Order'] = relationship(
+        back_populates='customer')
+
+    def __repr__(self):
+        return f"Customer({self.id.hex}, {self.name})"
+
+class Order(Model):
+    __tablename__ = 'orders'
+
+    id: Mapped[UUID] = mapped_column(default=uuid4, primary_key=True)
+    timestamp: Mapped[datetime] = mapped_column(
+    default=lambda:datetime.now(UTC), index=True)
+    customer_id: Mapped[UUID] = mapped_column(ForeignKey('customers.id'),
+     index=True)
+    # objects
+    customer: Mapped['Customer'] = relationship(back_populates='orders')
+    products: Mapped[list['Product']] = relationship(secondary='orders_items',
+    back_populates='orders')
+    order_items: Mapped[list['OrderItem']] = relationship(
+    back_populates='order')
+
+    def __repr__(self):
+        return f"Order({self.timestamp}, {self.id.hex})"
+
+# In case when you join table has their own columns, besides foreign
+# keys as primary key, you have to use full class inherits from Model class.
+# Another implications of table has additional columns is tha, we can't
+# use `secondary` parameter in relationship function.
+class OrderItem(Model):
+    __tablename__ = 'orders_items'
+
+    product_id: Mapped[int] = mapped_column(ForeignKey('products.id'),
+    primary_key=True)
+    order_id: Mapped[UUID] = mapped_column(ForeignKey('orders.id'),
+    primary_key=True)
+    unit_price: Mapped[float]
+    quantity: Mapped[int]
+    
+    product: Mapped['Product'] = relationship(back_populates='order_items')
+    order: Mapped['Order'] = relationship(back_populates='order_items')
 
 
 
