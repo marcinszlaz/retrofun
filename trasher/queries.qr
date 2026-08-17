@@ -93,7 +93,13 @@ WHERE countries.name = 'USA' OR countries.name = 'UK';
 --------------------------------------------------------------------------->
 
 <-----------------chapter-4-exercise-2--------------------------------------
-
+sqlite:
+q = select(Product.name, Country.name).join(Country.products).where(not_(or_(Country.name.like('UK'), Country.name.like('USA'))))
+q = select(Product.name, Country.name).join(Country.products).group_by(Product.name).having(not_(or_(Country.name.like('USA'), Country.name.like('UK')))).order_by(Product.name.desc())
+sql:
+SELECT products.name, countries.name AS name_1
+FROM countries JOIN products_countries AS products_countries_1 ON countries.id = products_countries_1.country_id JOIN products ON products.id = products_countries_1.product_id
+WHERE NOT (countries.name LIKE 'UK' OR countries.name LIKE 'USA') AND countries.name = 'Poland';
 ---------------------------------------------------------------------------->
 
 <-----------------chapter-4-exercise-3--------------------------------------
@@ -125,22 +131,24 @@ FROM products JOIN products_countries AS products_countries_1 ON products.id = p
 
 <--------------------chapter-4-exercise-6----------------------------------------
 sqlite:
-
+q = select(Manufacturer.name, func.count(Country.name)).join(Manufacturer.products).join(Product.countries).group_by(Manufacturer.name).having(or_(and_(Country.name=="UK", func.count(Country.name) > 3), and_(Country.name=="USA", func.count(Country.name) >3))).order_by(func.count(Country.name).desc()).limit(7)
 sql:
-
+SELECT ROW_NUMBER() OVER() AS rn, m.name, COUNT(c.name) FROM manufacturers m JOIN products p ON p.manufacturer_id = m.id JOIN products_countries pc ON pc.product_id = p.id JOIN countries c ON pc.country_id = c.id GROUP BY m.name HAVING (c.name == "UK" AND COUNT(c.name) > 3) OR (c.name == "USA" AND COUNT(c.name) > 3);
 ---------------------------------------------------------------------------------->
 
 <--------------------chapter-4-exercise-7------------------------------------------
 sqlite:
-
+q = select(Manufacturer.name, func.count(Country.name)).join(Manufacturer.products).join(Product.countries).group_by(Manufacturer.name).having(func.count(Country.name) > 1).order_by(func.count(Country.name).desc())
 sql:
-
+SELECT manufacturers.name, count(countries.name) AS count_1
+FROM manufacturers JOIN products ON manufacturers.id = products.manufacturer_id JOIN products_countries AS products_countries_1 ON products.id = products_countries_1.product_id JOIN countries ON countries.id = products_countries_1.country_id GROUP BY manufacturers.name
+HAVING count(countries.name) > 1 ORDER BY count(countries.name) DESC;
 ------------------------------------------------------------------------------------>
 
 <--------------------chapter-4-exercise-8--------------------------------------------
 sqlite:
-
+q = select(Product.name.label('prodóct\\_neim'), Country.name.label('kantry\\_nejm')).join(Product.countries).where(or_(Country.name=="UK", Country.name=="USA"))
 sql:
-
+SELECT ROW_NUMBER() OVER() AS rn, p.name, c.name FROM products p JOIN products_countries pc ON p.id = pc.product_id JOIN countries c ON c.id = pc.country_id WHERE c.name == "USA" OR c.name == "UK" LIMIT 10 OFFSET 60;
 -------------------------------------------------------------------------------------->
 

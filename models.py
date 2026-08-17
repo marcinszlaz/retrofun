@@ -52,8 +52,7 @@ class Country(Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(32), index=True, unique=True)
     
-    products: Mapped[list['Product']] = relationship(secondary='products_countries',
-                                    back_populates='countries')
+    products: Mapped[list['Product']] = relationship(secondary='products_countries', back_populates='countries')
     def __repr__(self):
         return f'Country({self.id}, "{self.name}")'
 
