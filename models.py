@@ -31,7 +31,6 @@ class Product(Model):
         back_populates = 'products') # lazy = 'joined' => eager loader active
     countries: Mapped[list['Country']] = relationship(
                 secondary='products_countries', back_populates='products')
-    orders: Mapped[list['Order']] = relationship(secondary='orders_items', back_populates='products')
     order_items: WriteOnlyMapped['OrderItem'] = relationship(
     back_populates='product')
 
@@ -85,8 +84,6 @@ class Order(Model):
      index=True)
     # objects
     customer: Mapped['Customer'] = relationship(back_populates='orders')
-    products: Mapped[list['Product']] = relationship(secondary='orders_items',
-    back_populates='orders')
     order_items: Mapped[list['OrderItem']] = relationship(
     back_populates='order')
 
