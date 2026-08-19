@@ -1,7 +1,7 @@
 from datetime import datetime, UTC
 from uuid import UUID, uuid4
 from sqlalchemy import (String, ForeignKey, Table, Column,
-Uuid, DateTime, Float)
+Uuid, DateTime, Float, Text)
 from sqlalchemy.orm import (Mapped, mapped_column, Session, relationship,
 WriteOnlyMapped)
 from db import Model, engine
@@ -33,6 +33,8 @@ class Product(Model):
                 secondary='products_countries', back_populates='products')
     order_items: WriteOnlyMapped['OrderItem'] = relationship(
     back_populates='product')
+    reviews: WriteOnlyMapped['ProductReview'] = relationship(
+        back_populates='product')
 
     def __repr__(self):
         return f'Product({self.id}|{self.name}|{self.year}|{self.cpu})'
@@ -70,6 +72,9 @@ class Customer(Model):
     
     orders: WriteOnlyMapped['Order'] = relationship(
         back_populates='customer')
+    product_reviews: WriteOnlyMapped['ProductReview'] = relationship(
+        back_populates='customer')
+    
 
     def __repr__(self):
         return f"Customer({self.id.hex}, {self.name})"
@@ -108,6 +113,22 @@ class OrderItem(Model):
     order: Mapped['Order'] = relationship(back_populates='order_items')
 
 
+class ProductReview(Model):
+    __tablename__ = 'products_reviews'
+
+    product_id: Mapped[int] = mapped_column(ForeignKey('products.id'), 
+    primary_key=True)
+    customer_id: Mapped[UUID] = mapped_column(ForeignKey('customers.id'),
+    primary_key=True)
+
+    timestamp: Mapped[datetime] = mapped_column(
+    default=lambda:datetime.now(UTC), index=True)
+    rating: Mapped[int]
+    comment: Mapped[Optional[str]] = mapped_column(Text)
+# objects
+    product: Mapped['Product'] = relationship(back_populates='reviews')
+    customer: Mapped['Customer'] = relationship(
+        back_populates='product_reviews')
 
 
 #c64 = Product(name = 'Commodore 64', manufacturer = 'Commodore')

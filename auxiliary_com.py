@@ -7,35 +7,37 @@ from sqlalchemy import select, or_, and_, not_
 session = Session()
 
 
-def c(data, count: int = 5, offset: int = 0)->None:
-    """ scalars return list """
+def cf(data, yield_: int = 5, offset: int = 0)->None:
+    """ scalars, return list """
     result = session.scalars(data).all()
-    if len(result) >= count:
+    if len(result) >= yield_:
         try:
-            for _ in range(count):
+            for _ in range(yield_):
                 print(f"{_+1+offset}: {result[_+offset]}")
         except IndexError as ix:
-            print(f"Decrease count or offset. {ix}")
-    elif count > len(result):
-        print(f'gave count is {count} but list length is {len(result)}')
+            print(f"Decrease yield_ or offset. {ix}")
+    elif yield_ > len(result):
+        print(f'gave yield_ is {yield_} but list length is {len(result)}')
     else:
         print('The query which was given is empty')
-    print(f'processed data rows count: {count}/{len(result)}')
+    print(f'processed data rows yield_: {yield_}/{len(result)}')
     return None
 
-def d(data, count: int = 5, offset: int = 0)->None:
-    """ execute returns tuples """
+def df(data, yield_: int = 5, offset: int = 0)->None:
+    """ execute, returns tuples """
     result = session.execute(data).all()
-    if len(result) >= count:
+    if len(result) >= yield_:
         try:
-            for _ in range(count):
+            for _ in range(yield_):
                 print(f"{_+1+offset}: {result[_+offset]}")
         except IndexError as ix:
-            print(f"Decrease count or offset. {ix}")
-    elif count > len(result):
-        print(f'gave count is {count} but list length is {len(result)}')
+            print(f"Decrease yield_ or offset. {ix}")
+    elif yield_ > len(result):
+        print(f'gave yield_ is {yield_} but list length is {len(result)}')
     else:
         print('The query which was given is empty')
-    print(f'processed data rows count: {count}/{len(result)}')
+    print(f'processed data rows yield_: {yield_}/{len(result)}')
     return None
+
 # Copyright(c) by Marcin Szlaz xD.
+
