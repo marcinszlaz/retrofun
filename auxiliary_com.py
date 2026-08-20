@@ -39,5 +39,9 @@ def df(data, yield_: int = 5, offset: int = 0)->None:
     print(f'processed data rows yield_: {yield_}/{len(result)}')
     return None
 
+def cp(query)->None:
+    print(query.compile(compile_kwargs={'literal_binds': True}))
+
 # Copyright(c) by Marcin Szlaz xD.
+
 

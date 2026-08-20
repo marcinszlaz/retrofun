@@ -26,42 +26,42 @@ SELECT p.country AS highest_manufacturer_count_country, COUNT(m.name) AS manufac
 --------------------------------------------------------------->
 
 <-------------chapter-3-exercise-1------------------------------
-sqlite:
+sqlalchemy:
 q = select(Product.name).join(Manufacturer.products).where(or_(Manufacturer.name == "IBM", Manufacturer.name == "Texas Instruments"))
 sql:
 SELECT p.name FROM products p JOIN manufacturers m ON p.manufacturer_id = m.id WHERE m.name = 'IBM' OR m.name = 'Texas Instruments';
 ---------------------------------------------------------------->
 
 <-------------chapter-3-exercise-2--------------------------------
-sqlite:
+sqlalchemy:
 q = select(Manufacturer.name).join(Product.manufacturer).where(Product.country == 'Brazil')
 sql:
 SELECT m.name FROM manufacturers m JOIN products p ON m.id = p.manufacturer_id WHERE p.country = 'Brazil';
 ----------------------------------------------------------------->
 
 <-----------------chapter-3-exercise-3----------------------------
-sqlite:
+sqlalchemy:
 q = select(Product).join(Manufacturer.products).where(Manufacturer.name.ilike('%research%'
 sql:
 SELECT p.* FROM products p JOIN manufacturers m ON p.manufacturer_id = m.id WHERE m.name LIKE('%research%');
 ------------------------------------------------------------------->
 
 <-----------------chapter-3-exercise-4------------------------------
-sqlite:
+sqlalchemy:
 q = select(Manufacturer.name.distinct()).join(Product.manufacturer).where(Product.cpu.like('%Z80%')).order_by(Manufacturer.name.desc()).limit(5)
 sql:
 SELECT DISTINCT(m.name) FROM manufacturers m JOIN products p ON m.id = p.manufacturer_id WHERE p.cpu LIKE('%Z80%') ORDER BY m.name ASC LIMIT 5;
 ------------------------------------------------------------------->
 
 <------------------chapter-3-exercise-5-----------------------------
-sqlite:
+sqlalchemy:
 q = select(Manufacturer.name.distinct()).join(Product.manufacturer).where(not_(Product.cpu.like('%6502%')))
 sql:
 SELECT DISTINCT(m.name) FROM manufacturers m JOIN products p ON m.id = p.manufacturer_id WHERE p.cpu NOT LIKE('%6502%') LIMIT 5;
 -------------------------------------------------------------------->
 
 <------------------chapter-3-exercise-6-------------------------------
-sqlite:
+sqlalchemy:
 q = select(Manufacturer.name, Product.name, func.min(Product.year).label('min_year')).join(Manufacturer.products).group_by(Manufacturer.name).order_by(Product.year.asc())
 sql:
 SELECT m.name AS mfc_name, p.name AS p_name, MIN(p.year) AS min_year FROM manufacturers m JOIN products p ON m.id = p.manufacturer_id GROUP BY m.name ORDER BY min_year ASC LIMIT 10;
@@ -75,7 +75,7 @@ SELECT m.name AS man_name, COUNT(p.name) AS prod_count FROM manufacturers m JOIN
 ------------------------------------------------------------------------>
 
 <-------------------chapter-3-exercise-8---------------------------------
-sqlite:
+sqlalchemy:
 substract = func.max(Product.year) - func.min(Product.year)
 q = select(Manufacturer.name, substract).join(Product.manufacturer).group_by(Manufacturer.name).having(substract > 5).order_by(substract.desc()).limit(10)
 sql:
@@ -84,7 +84,7 @@ SELECT m.name, MAX(p.year) AS max, MIN(p.year) AS min, MAX(p.year) - MIN(p.year)
 
 <-------------------CHAPTER-FOUR------------------------------------------>
 <-----------------chapter-4-exercise-1------------------------------------
-sqlite:
+sqlalchemy:
 q = select(Product, Country.name).join(Country.products).where(or_(Country.name =='USA', Country.name=='UK'))
 sql:
 SELECT products.id, products.name, products.manufacturer_id, products.year, products.cpu, countries.name AS name_1
@@ -93,7 +93,7 @@ WHERE countries.name = 'USA' OR countries.name = 'UK';
 --------------------------------------------------------------------------->
 
 <-----------------chapter-4-exercise-2--------------------------------------
-sqlite:
+sqlalchemy:
 q = select(Product.name, Country.name).join(Country.products).where(not_(or_(Country.name.like('UK'), Country.name.like('USA'))))
 q = select(Product.name, Country.name).join(Country.products).group_by(Product.name).having(not_(or_(Country.name.like('USA'), Country.name.like('UK')))).order_by(Product.name.desc())
 sql:
@@ -103,7 +103,7 @@ WHERE NOT (countries.name LIKE 'UK' OR countries.name LIKE 'USA') AND countries.
 ---------------------------------------------------------------------------->
 
 <-----------------chapter-4-exercise-3--------------------------------------
-sqlite:
+sqlalchemy:
 q = select(Country.name, Product.cpu, Product.name).join(Product.countries).where(Product.cpu.like('%Z80%'))
 sql:
 SELECT countries.name, products.cpu, products.name AS name_1
@@ -112,7 +112,7 @@ WHERE products.cpu LIKE '%Z80%';
 ----------------------------------------------------------------------------->
 
 <------------------chapter-4-exercise-4---------------------------------------
-sqlite:
+sqlalchemy:
 q = select(Country.name, Product.year).join(Product.countries).group_by(Product.year).having(Product.year.between(1970, 1979)).order_by(Country.name)
 sql:
 SELECT countries.name, products.year
@@ -121,7 +121,7 @@ HAVING products.year BETWEEN 1970 AND 1979 ORDER BY countries.name;
 ------------------------------------------------------------------------------->
 
 <------------------chapter-4-exercise-5-----------------------------------------
-sqlite:
+sqlalchemy:
 q = select(Country.name, func.count(Product.id)).join(Product.countries).group_by(Country.name).order_by(func.count(Product.id).desc()).limit(5)
 sql:
 SELECT countries.name, count(products.id) AS count_1
@@ -130,14 +130,14 @@ FROM products JOIN products_countries AS products_countries_1 ON products.id = p
 -------------------------------------------------------------------------------->
 
 <--------------------chapter-4-exercise-6----------------------------------------
-sqlite:
+sqlalchemy:
 q = select(Manufacturer.name, func.count(Country.name)).join(Manufacturer.products).join(Product.countries).group_by(Manufacturer.name).having(or_(and_(Country.name=="UK", func.count(Country.name) > 3), and_(Country.name=="USA", func.count(Country.name) >3))).order_by(func.count(Country.name).desc()).limit(7)
 sql:
 SELECT ROW_NUMBER() OVER() AS rn, m.name, COUNT(c.name) FROM manufacturers m JOIN products p ON p.manufacturer_id = m.id JOIN products_countries pc ON pc.product_id = p.id JOIN countries c ON pc.country_id = c.id GROUP BY m.name HAVING (c.name == "UK" AND COUNT(c.name) > 3) OR (c.name == "USA" AND COUNT(c.name) > 3);
 ---------------------------------------------------------------------------------->
 
 <--------------------chapter-4-exercise-7------------------------------------------
-sqlite:
+sqlalchemy:
 q = select(Manufacturer.name, func.count(Country.name)).join(Manufacturer.products).join(Product.countries).group_by(Manufacturer.name).having(func.count(Country.name) > 1).order_by(func.count(Country.name).desc())
 sql:
 SELECT manufacturers.name, count(countries.name) AS count_1
@@ -146,9 +146,147 @@ HAVING count(countries.name) > 1 ORDER BY count(countries.name) DESC;
 ------------------------------------------------------------------------------------>
 
 <--------------------chapter-4-exercise-8--------------------------------------------
-sqlite:
+sqlalchemy:
 q = select(Product.name.label('prodóct\\_neim'), Country.name.label('kantry\\_nejm')).join(Product.countries).where(or_(Country.name=="UK", Country.name=="USA"))
 sql:
 SELECT ROW_NUMBER() OVER() AS rn, p.name, c.name FROM products p JOIN products_countries pc ON p.id = pc.product_id JOIN countries c ON c.id = pc.country_id WHERE c.name == "USA" OR c.name == "UK" LIMIT 10 OFFSET 60;
 -------------------------------------------------------------------------------------->
+
+<-----------------------chapter-5-exercise-1-------------------------------------------
+sqlalchemy:
+order_value_sum = func.sum(OrderItem.unit_price*OrderItem.quantity).label('order_value_sum')
+q = select(Order.timestamp, order_value_sum).join(Order.order_items).group_by(Order.timestamp).having(order_value_sum>300).order_by(order_value_sum.desc())
+sql:
+SELECT o.timestamp, SUM(oi.unit_price*oi.quantity) FROM orders o JOIN orders_items oi ON o.id = oi.order_id GROUP BY o.timestamp HAVING SUM(oi.unit_price*oi.quantity)>300 ORDER BY SUM(oi.unit_price*oi.quantity) DESC LIMIT 5;
+--------------------------------------------------------------------------------------->
+
+<---------------------------chapter-5-exercise-2----------------------------------------
+sqlalchemy:
+q = select(func.strftime("%Y-%m-%d", Order.timestamp).label('date'), Product.name.label('prod_name'), Order.id.label('order_id')).join(OrderItem.order).join(OrderItem.product).where(Product.name.like('%ZX81%'))
+sql:
+SELECT strftime('%Y-%m-%d', orders.timestamp) AS date, products.name AS prod_name, orders.id AS order_id
+FROM orders_items JOIN orders ON orders.id = orders_items.order_id JOIN products ON products.id = orders_items.product_id
+WHERE products.name LIKE '%ZX81%';
+---------------------------------------------------------------------------------------->
+
+<-----------------------------chapter-5-exercise-3--------------------------------------
+sqlalchemy:
+q = (select(Order.id, func.strftime("%Y-%m-%d", Order.timestamp), Manufacturer.name)
+.join(Order.order_items)
+.join(OrderItem.product)
+.join(Product.manufacturer)
+.where(Manufacturer.name=='Amstrad'))
+sql:
+SELECT orders.id, strftime('%Y-%m-%d', orders.timestamp) AS strftime_1, manufacturers.name
+FROM orders JOIN orders_items ON orders.id = orders_items.order_id JOIN products ON products.id = orders_items.product_id JOIN manufacturers ON manufacturers.id = products.manufacturer_id
+WHERE manufacturers.name = 'Amstrad';
+---------------------------------------------------------------------------------------->
+
+<-------------------------------chapter-5-exercise-4------------------------------------
+sqlalchemy:
+q = (select(Order.id, func.strftime("%Y-%m-%d", Order.timestamp),
+func.count(Product.name).label('product_count'))
+.join(Order.order_items)
+.join(OrderItem.product)
+.group_by(Order.id)
+.having(and_(func.count(Product.name)>=2, func.strftime("%Y-%m-%d", Order.timestamp) == "2022-12-25"))
+.order_by(Order.id.desc()))
+sql:
+SELECT orders.id, strftime('%Y-%m-%d', orders.timestamp) AS strftime_1, count(products.name) AS product_count
+FROM orders JOIN orders_items ON orders.id = orders_items.order_id JOIN products ON products.id = orders_items.product_id GROUP BY orders.id
+HAVING count(products.name) >= 2 AND strftime('%Y-%m-%d', orders.timestamp) = '2022-12-25' ORDER BY orders.id DESC;
+---------------------------------------------------------------------------------------->
+
+<-----------------------chapter-5-exercise-5--------------------------------------------
+sqlalchemy:
+q = (select\
+(Customer.name,\
+func.strftime('%Y-%m-%d', func.min(Order.timestamp)),\
+func.strftime('%Y-%m-%d', func.max(Order.timestamp)))\
+.join(Customer.orders)
+.group_by(Customer.name))
+sql:
+SELECT customers.name, strftime('%Y-%m-%d', min(orders.timestamp)) AS strftime_1, strftime('%Y-%m-%d', max(orders.timestamp)) AS strftime_2
+FROM customers JOIN orders ON customers.id = orders.customer_id GROUP BY customers.name;
+---------------------------------------------------------------------------------------->
+
+<---------------------------------chapter-5-exercise-6----------------------------------
+sqlalchemy:
+q = select(Manufacturer.name.label('manufacturer_name'),\
+func.sum(OrderItem.unit_price*OrderItem.quantity).label('sale_amount'))\
+.join(Manufacturer.products)\
+.join(Product.order_items)\
+.group_by(Manufacturer.name)\
+.order_by(func.sum(OrderItem.unit_price*OrderItem.quantity).label('sale_amount').desc())
+sql:
+SELECT manufacturers.name AS manufacturer_name, sum(orders_items.unit_price * orders_items.quantity) AS sale_amount
+FROM manufacturers JOIN products ON manufacturers.id = products.manufacturer_id JOIN orders_items ON products.id = orders_items.product_id GROUP BY manufacturers.name ORDER BY sum(orders_items.unit_price * orders_items.quantity) DESC;
+---------------------------------------------------------------------------------------->
+
+<--------------------------------chapter-5-exercise-7------------------------------------
+sqlalchemy:
+q = select(Product.name,\
+func.avg(ProductReview.rating).label('avg_rating'),\
+func.sum(ProductReview.rating).label('rating_sum'),\
+func.count(ProductReview.comment).label('comments_count'))\
+.join(Product.reviews)\
+.group_by(Product.name)\
+.order_by(func.count(ProductReview.comment).desc())
+sql:
+SELECT products.name, avg(products_reviews.rating) AS avg_rating, sum(products_reviews.rating) AS rating_sum, count(products_reviews.comment) AS comments_count
+FROM products JOIN products_reviews ON products.id = products_reviews.product_id GROUP BY products.name ORDER BY count(products_reviews.comment) DESC;
+---------------------------------------------------------------------------------------->
+
+<-------------------------------chapter-5-exercise-8--------------------------------------
+sqlalchemy:
+q = select(Product.name, func.avg(ProductReview.rating))\
+.join(Product.reviews)\
+.group_by(Product.name)\
+.having(func.count(ProductReview.comment)>=1)\
+.order_by(func.avg(ProductReview.rating).desc())
+sql:
+SELECT products.name, avg(products_reviews.rating) AS avg_1
+FROM products JOIN products_reviews ON products.id = products_reviews.product_id GROUP BY products.name
+HAVING count(products_reviews.comment) >= 1 ORDER BY avg(products_reviews.rating) DESC;
+------------------------------------------------------------------------------------------->
+
+<-------------------------------chapter-5-exercise-9---------------------------------------
+sqlalchemy:
+year = func.extract('year', ProductReview.timestamp)
+month = func.extract('month', ProductReview.timestamp)
+q = select(Product.name, year, month,\
+func.avg(ProductReview.rating))\
+.join(ProductReview.product)\
+.where(Product.name.like("%Commodore_64%"))\
+.group_by(year, month)\
+.order_by(year.desc(), month.asc())
+sql:
+SELECT products.name, EXTRACT(year FROM products_reviews.timestamp) AS anon_1, EXTRACT(month FROM products_reviews.timestamp) AS anon_2, avg(products_reviews.rating) AS avg_1
+FROM products_reviews JOIN products ON products.id = products_reviews.product_id
+WHERE products.name LIKE '%Commodore_64%' GROUP BY EXTRACT(year FROM products_reviews.timestamp), EXTRACT(month FROM products_reviews.timestamp) ORDER BY EXTRACT(year FROM products_reviews.timestamp) DESC, EXTRACT(month FROM products_reviews.timestamp) ASC;
+------------------------------------------------------------------------------------------->
+
+<---------------------chapter-5-exercise-10-------------------------------------------------
+sqlalchemy:
+q = select(Customer.name, Product.name, func.count(Product.name), func.min(ProductReview.rating), func.max(ProductReview.rating)).join(ProductReview.customer).join(ProductReview.product).group_by(Customer.name)
+sql:
+SELECT customers.name, products.name AS name_1, count(products.name) AS count_1, min(products_reviews.rating) AS min_1, max(products_reviews.rating) AS max_1
+FROM products_reviews JOIN customers ON customers.id = products_reviews.customer_id JOIN products ON products.id = products_reviews.product_id GROUP BY customers.name;
+-------------------------------------------------------------------------------------------->
+
+<--------------------------chapter-5-exercise-11--------------------------------------------
+sqlalchemy:
+q = select(Manufacturer.name, Product.name, func.avg(ProductReview.rating)).join(Manufacturer.products).join(Product.reviews).group_by(Manufacturer.name).order_by(func.avg(ProductReview.rating).desc())
+sql:
+SELECT manufacturers.name, products.name AS name_1, avg(products_reviews.rating) AS avg_1
+FROM manufacturers JOIN products ON manufacturers.id = products.manufacturer_id JOIN products_reviews ON products.id = products_reviews.product_id GROUP BY manufacturers.name ORDER BY avg(products_reviews.rating) DESC;
+-------------------------------------------------------------------------------------------->
+
+<----------------------------chapter-5-exercise-12------------------------------------------
+sqlalchemy:
+>>> q = select(Country.name, Product.name, func.avg(ProductReview.rating)).join(Country.products).join(Product.reviews).group_by(Country.name).order_by(func.avg(ProductReview.rating).desc())
+sql:
+SELECT countries.name, products.name AS name_1, avg(products_reviews.rating) AS avg_1
+FROM countries JOIN products_countries AS products_countries_1 ON countries.id = products_countries_1.country_id JOIN products ON products.id = products_countries_1.product_id JOIN products_reviews ON products.id = products_reviews.product_id GROUP BY countries.name ORDER BY avg(products_reviews.rating) DESC;
+------------------------------------------------------------------------------------------->
 
