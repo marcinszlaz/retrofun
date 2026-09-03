@@ -217,7 +217,6 @@ class BlogView(Model):
    article: Mapped['BlogArticle'] = relationship(back_populates='views')
    session: Mapped['BlogSession'] = relationship(back_populates='views')
 
-
 class Language(Model):
     __tablename__ = 'languages'
 # columns
@@ -231,22 +230,3 @@ class Language(Model):
         return f'Language({self.id}, "{self.name}")'
 
 
-"""
-c64 = Product(name = 'Commodore 64', manufacturer = 'Commodore')
-longer version
-with Session(engine) as session:
-    try:
-        session.add(c64)
-        session.commit()
-    except:
-        session.rollback()
-        raise
-    print(c64)
-
-shorter version with begin()
-begin() under the hood do try/except magic
-with Session(engine) as session:
-    with session.begin():
-        session.add(c64)
-    print(c64)
-"""
