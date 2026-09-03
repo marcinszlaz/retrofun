@@ -1,6 +1,6 @@
 # added by me, not default
 from db import Model, engine
-import models
+# import models
 # added by me, not default
 
 from logging.config import fileConfig

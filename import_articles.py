@@ -2,8 +2,8 @@ import csv
 from datetime import datetime
 from sqlalchemy import select, delete
 from db import Session
-from models import (BlogArticle, BlogAuthor, Product, BlogView, BlogSession,
-                    BlogUser)
+from models import BlogArticle, BlogAuthor, Product, BlogView, BlogSession, \
+    BlogUser
 
 
 def main():
@@ -47,6 +47,6 @@ def main():
                     )
                     session.add(article)
 
+
 if __name__ == '__main__':
     main()
-

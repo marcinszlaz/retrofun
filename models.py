@@ -217,6 +217,7 @@ class BlogView(Model):
    article: Mapped['BlogArticle'] = relationship(back_populates='views')
    session: Mapped['BlogSession'] = relationship(back_populates='views')
 
+
 class Language(Model):
     __tablename__ = 'languages'
 # columns
