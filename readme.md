@@ -22,7 +22,7 @@
   session = Session()`
 * ready to copy paste => 
 
-from sqlalchemy import select,func,or_,and_,not_,union;from db import Session;from models import Product,Manufacturer,Country,ProductCountry,Customer,Order,OrderItem,BlogArticle,BlogView;session=Session();from auxiliary_com import cf, df, cp;from sqlalchemy.orm import joinedload;from uuid import uuid4,UUID;import uuid;import resource;limit=300*1024*1024;resource.setrlimit(resource.RLIMIT_AS,(limit,limit));from datetime import datetime;
+from sqlalchemy import select,func,or_,and_,not_,union,case;from db import Session;from models import Product,Manufacturer,Country,ProductCountry,Customer,Order,OrderItem,BlogArticle,BlogView,Language;session=Session();from auxiliary_com import cf, df, cp;from sqlalchemy.orm import joinedload,aliased;from uuid import uuid4,UUID;import uuid;import resource;limit=300*1024*1024;resource.setrlimit(resource.RLIMIT_AS,(limit,limit));from datetime import datetime;
 
 ## How to save your work in REPL?
 * history of commands inputed in Python REPL are in /home/.python_history file

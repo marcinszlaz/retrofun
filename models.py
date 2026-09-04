@@ -21,7 +21,6 @@ class Product(Model):
 # columns
     id: Mapped[int] = mapped_column(primary_key = True)
     name: Mapped[str] = mapped_column(String(64), index = True, unique = True)
-    #manufacturer: Mapped[str] = mapped_column(String(64), index = True)
     manufacturer_id: Mapped[int] = mapped_column(
         ForeignKey('manufacturers.id'), index = True) #or Manufacturer.id
     year: Mapped[int] = mapped_column(index = True)
@@ -147,7 +146,7 @@ class BlogArticle(Model):
     language_id: Mapped[Optional[int]] = mapped_column(
         ForeignKey('languages.id'), index=True)
     translation_of_id: Mapped[Optional[int]] = mapped_column(
-        ForeignKey('blog_articles.id'), index=True)
+       ForeignKey('blog_articles.id'), index=True)
     timestamp: Mapped[datetime] = mapped_column(
         default=lambda: datetime.now(UTC), index=True)
 # relationship objects
@@ -156,9 +155,9 @@ class BlogArticle(Model):
         back_populates='blog_articles')
     views: WriteOnlyMapped['BlogView'] = relationship(back_populates='article')
     language: Mapped[Optional['Language']] = relationship(
-        back_populates='blog_articles')
+       back_populates='blog_articles')
     translation_of: Mapped[Optional['BlogArticle']] = relationship(
-        remote_side=id, back_populates='translations')
+       remote_side=id, back_populates='translations')
     translations: Mapped[list['BlogArticle']] = relationship(
         back_populates='translation_of')
 

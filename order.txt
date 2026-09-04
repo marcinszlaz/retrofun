@@ -1,0 +1,7 @@
+# correctly import order it corresponds with alembic revision history
+import_1_products.py 
+import_2_orders.py 
+import_3_reviews.py 
+import_4_articles.py 
+import_5_views.py
+import_6_languages.py
