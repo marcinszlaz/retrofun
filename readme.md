@@ -7,6 +7,7 @@
 * db name = db, user = retrofun password = admin_xD driver = pymysql
 * `pip install psycopg2-binary` - driver for PostgreSQL (we use here mysql)
 * `pip install python-dotenv` - good old dotenv xD
+* `pip install aiosqlite aiomysql asyncpg` async db drivers, sqlite, mysql, postgresql`
 
 ## database part
 * `mysql -h 10.215.14.30 -P 3310 -u retrofun -p retrofun` - enter to mysql in docker from linux, retrorun after -p is db-name
@@ -14,15 +15,21 @@
     `url = 'mysql+pymysql://retrofun:my-password@localhost:3306/retrofun'`
 * PostgreSQL with psycopg2:
     `url = 'postgresql+psycopg2://retrofun:my-password@localhost:5432/retrofun'`
+* asynchronous database for async work
+* ``pip install aiosqlite` for sqlite,
+* it reflects on url to database:
+* ``DATABASE_URL=sqlite+aiosqlite:///retrofun.sqlite`` - this way.`
+* ``mysql+aiomysql://retrofun:my-password@localhost:3306/retrofun.sqlite` 
+* `DATABASE_URL=postgresql+asyncpg://retrofun:my-password@localhost:5432//retrofun`
 
-## access to database from Python shell (REPL)
+* ## access to database from Python shell (REPL)
 * `from sqlalchemy import select, func
   from db import Session
   from models import Product, Manufacturer
   session = Session()`
 * ready to copy paste => 
 
-from sqlalchemy import select,func,or_,and_,not_,union,case;from db import Session;from models import Product,Manufacturer,Country,ProductCountry,Customer,Order,OrderItem,BlogArticle,BlogView,Language;session=Session();from auxiliary_com import cf, df, cp;from sqlalchemy.orm import joinedload,aliased;from uuid import uuid4,UUID;import uuid;import resource;limit=300*1024*1024;resource.setrlimit(resource.RLIMIT_AS,(limit,limit));from datetime import datetime;
+from sqlalchemy import select,func,or_,and_,not_,union,case;from db import Session;from models import Product,Manufacturer,Country,ProductCountry,Customer,Order,OrderItem,BlogArticle,BlogView,Language,BlogAuthor;session=Session();from auxiliary_com import cf,df,cp;from sqlalchemy.orm import joinedload,aliased;from uuid import uuid4,UUID;import uuid;import resource;limit=300*1024*1024;resource.setrlimit(resource.RLIMIT_AS,(limit,limit));from datetime import datetime;
 
 ## How to save your work in REPL?
 * history of commands inputed in Python REPL are in /home/.python_history file

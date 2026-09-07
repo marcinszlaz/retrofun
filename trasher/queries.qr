@@ -290,3 +290,52 @@ SELECT countries.name, products.name AS name_1, avg(products_reviews.rating) AS 
 FROM countries JOIN products_countries AS products_countries_1 ON countries.id = products_countries_1.country_id JOIN products ON products.id = products_countries_1.product_id JOIN products_reviews ON products.id = products_reviews.product_id GROUP BY countries.name ORDER BY avg(products_reviews.rating) DESC;
 ------------------------------------------------------------------------------------------->
 
+<-----------------------chapter-6-exercise-1--------------------------
+sqlalchemy:
+q = select(BlogView.article_id, BlogArticle.title, page_views).join(BlogView.article).where(BlogView.timestamp.between(datetime(2020, 3, 1), datetime(2020, 3, 31))).group_by(BlogView.article_id).having(page_views > 40).order_by(page_views.desc())
+sql:
+SELECT bv.article_id, ba.title, COUNT(bv.id) AS page_views FROM blog_views bv JOIN blog_articles ba ON ba.id = bv.article_id WHERE bv.timestamp BETWEEN '2020-03-01' AND '2020-03-31' GROUP BY bv.article_id HAVING page_views > 40 ORDER BY page_views DESC LIMIT 10;
+----------------------------------------------------------------------->
+
+<------------------chapter-6-exercise-2---------------------------------
+sqlite:
+subq = select(func.row_number().over(partition_by=func.count(FakeBlogArticle.id), order_by=BlogArticle.title.asc()).label('rn'), BlogArticle.id, BlogArticle.title, func.count(FakeBlogArticle.id).label('translation_count')).join(FakeBlogArticle, BlogArticle.translations).group_by(BlogArticle.id, BlogArticle.title).order_by(func.count(FakeBlogArticle.id).desc(), BlogArticle.title.asc()).subquery()
+q = select(subq.c.rn, subq.c.id, subq.c.title, subq.c.translation_count).where(subq.c.rn == 1)
+sql:
+SELECT rn, title, translation_count FROM (SELECT ROW_NUMBER() OVER(PARTITION BY COUNT(fba.id) ORDER BY ba.title) AS 'rn', ba.title AS 'title', COUNT(fba.id) AS 'translation_count' FROM blog_articles ba JOIN blog_articles AS fba ON ba.id = fba.translation_of_id GROUP BY ba.id ORDER BY translation_count DESC, ba.title ASC) AS subq WHERE rn =1;
+------------------------------------------------------------------------>
+
+<--------------------chapter-6-exercise-3-----------------------------------
+sqlite:
+q = select(Language.name, page_views).join(Language.blog_articles).join(BlogArticle.views).where(BlogView.timestamp.between(datetime(2022, 3, 1), datetime(2022, 3, 31))).group_by(Language.name).order_by(page_views.desc())
+sql:
+SELECT l.name, count(bv.id) AS page_views FROM languages l JOIN blog_articles b ON l.id = b.language_id JOIN blog_views bv ON b.id = bv.article_id WHERE bv.timestamp BETWEEN '2022-03-01' AND '2022-03-31' GROUP BY l.name ORDER BY 'page_views' DESC;
+----------------------------------------------------------------------------->
+
+<-----------------chapter-6-exercise-4---------------------------------------
+sqlite:
+page_views = func.count(BlogView.id).label('page_views')
+q = select(Language.name, page_views).join(Language.blog_articles).join(BlogArticle.views).where(Language.name == 'German').group_by(Language.name).order_by(page_views.desc())
+q = select(BlogArticle.title, Language.name, page_views).join(Language.blog_articles).join(BlogArticle.views).where(Language.name == 'German').group_by(BlogArticle.title).order_by(page_views.desc())
+sql:
+SELECT l.name, COUNT(bv.id) AS 'page_views' FROM languages l JOIN blog_articles b ON l.id = b.language_id JOIN blog_views bv ON b.id = bv.article_id WHERE l.name = 'German';
+SELECT blog_articles.title, languages.name, count(blog_views.id) AS page_views
+FROM languages JOIN blog_articles ON languages.id = blog_articles.language_id JOIN blog_views ON blog_articles.id = blog_views.article_id
+WHERE languages.name = 'German' GROUP BY blog_articles.title ORDER BY page_views DESC
+----------------------------------------------------------------------------->
+
+<-----------------chapter-6-exercise-5----------------------------------------
+sqlite:
+q = select(func.extract('year', BlogView.timestamp), func.extract('month', BlogView.timestamp).label('month'), func.count(BlogView.id)).where(BlogView.timestamp.between(datetime(2022,1,1),datetime(2022,12,31))).group_by(func.extract('year', BlogView.timestamp), func.extract('month', BlogView.timestamp))
+sql:
+SELECT EXTRACT(year FROM bv.timestamp) AS 'year', EXTRACT(month FROM bv.timestamp) AS
+'month', COUNT(bv.id) AS 'page_views' FROM blog_views bv WHERE bv.timestamp BETWEEN '2022-1-1' AND '2022-12-31' GROUP BY EXTRACT(year FROM bv.timestamp), EXTRACT(month FROM bv.timestamp) ORDER BY EXTRACT(month FROM bv.timestamp) ASC;
+------------------------------------------------------------------------------>
+
+<-----------------chapter-6-exercise-6-----------------------------------------
+sqlite:
+q = select(year, month, day, page_views).where(BlogView.timestamp.between(datetime(2022,2,1),datetime(2022,3,1))).group_by(year,month,day).order_by(page_views.desc())
+sql:
+SELECT EXTRACT(year FROM blog_views.timestamp) AS year, EXTRACT(month FROM blog_views.timestamp) AS month, EXTRACT(day FROM blog_views.timestamp) AS day, count(blog_views.id) AS page_views FROM blog_views WHERE blog_views.timestamp BETWEEN '2022-02-01 00:00:00' AND '2022-03-01 00:00:00' GROUP BY EXTRACT(year FROM blog_views.timestamp), EXTRACT(month FROM blog_views.timestamp), EXTRACT(day FROM blog_views.timestamp) ORDER BY page_views DESC LIMIT 5;
+------------------------------------------------------------------------------->
+
