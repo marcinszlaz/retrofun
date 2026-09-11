@@ -1,1 +1,4 @@
 q = select(func.count(BlogArticle.id), BlogArticle.translation_of_id, session.scalar(select(BlogArticle.title).where(BlogArticle.translation_of_id == BlogArticle.id))).join(BlogArticle.author).join(BlogArticle.language).join(BlogArticle, BlogArticle.id == FakeBlogArticle.translation_of_id).where(BlogArticle.translation_of_id != None).group_by(BlogArticle.translation_of_id)
+
+
+

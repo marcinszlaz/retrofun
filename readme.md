@@ -43,3 +43,9 @@ from sqlalchemy import select,func,or_,and_,not_,union,case;from db import Sessi
 * `alembic current` - shows current head, current revision of database, all backups have their unique revision codes,
 * `alembic history` - shows history of upgrades, downgrades,
 *
+## git commands
+* `git show <tag_name>` - show info about tag,
+* `git tag -f <tag_name> <commit_hash>` - put tag from one commit to another,
+* `git push --tags --force` - push tag with force xD,
+* in case, when you was forced to use `git commit --amend` and you don't change anything in comment, but for egzample added some changes in file, DO NOT merge/rebase, use `git push --force-with-lease` instead, it's much better for humanity and natural environment xD,
+* 
