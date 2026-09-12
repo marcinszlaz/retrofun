@@ -4,7 +4,8 @@
 ----------------------------------------------------------------------------------
 * at the beginnig I had an idea, to make async branch in git, but NO, I'll make all async code inside this folder (./async),
 
-### python section
+
+## python section
 ----------------------------------------------------
 * `python -m asyncio` - REPL with support to async programs (you can use await keyword directly from the prompt, regular Python sessions only allows await inside functions declared with async def)
 *
@@ -21,3 +22,7 @@
 ### alembic section
 * `alembic init -t async migrations` - use alembic init but with template (-t) for asynchronous database code, migrations is folder
 * 
+
+## vim tricks xD
+* `:15,20norm 1wi await ` - adding from line 15 to 20 1 word forward (indention mitigation) insert await space
+*

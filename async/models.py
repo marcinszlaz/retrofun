@@ -1,4 +1,3 @@
-
 from datetime import datetime, UTC
 from uuid import UUID, uuid4
 from sqlalchemy import (String, ForeignKey, Table, Column,
